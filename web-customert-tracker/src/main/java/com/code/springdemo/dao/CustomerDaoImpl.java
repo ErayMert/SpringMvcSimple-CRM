@@ -49,4 +49,37 @@ public class CustomerDaoImpl implements CustomerDao {
 		// save / update Customer object
 		session.saveOrUpdate(customer);	
 	}
+	
+	@Override
+	public void deleteCustomer(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactroy.getCurrentSession();
+		
+		Query query = session.createQuery("delete from Customer where id=:customerId");
+		
+		query.setParameter("customerId", id);
+		
+		query.executeUpdate();
+	}
+	
+	@Override
+	public List<Customer> searchCustomers(String theSearchName) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactroy.getCurrentSession();
+		
+		Query query = null;
+		
+		if(theSearchName != null && theSearchName.trim().length()>0)
+		{
+			query = session.createQuery("from Customer where lower(firstName) like :theName or lower(lastName) like :theName",Customer.class);
+			
+			query.setParameter("theName", "%" + theSearchName.toLowerCase());
+		}
+		else
+			query = session.createQuery("from Customer", Customer.class);
+		
+		List<Customer> customers = query.getResultList();
+		
+		return customers;
+	}
 }
