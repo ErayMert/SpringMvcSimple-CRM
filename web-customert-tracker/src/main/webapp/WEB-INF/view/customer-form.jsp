@@ -19,7 +19,11 @@
 				<br>
 				<h2 style="color: #	E6E6FA">Add New Customer</h2>
 				<br>
+				
 				<form:form action="saveCustomer" modelAttribute="customer" method="POST">
+				  
+				  <form:hidden path="id"/>
+				  
 				  <div class="form-row">
 				  	 <div class="form-group col-md-9">
 					    <label>First Name</label>

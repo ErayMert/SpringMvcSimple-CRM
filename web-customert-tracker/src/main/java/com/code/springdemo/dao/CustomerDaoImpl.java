@@ -34,13 +34,19 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public Customer getCustomer(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactroy.getCurrentSession();
+		
+		Customer customer = session.get(Customer.class, id);
+		
+		return customer;
 	}
 	
 	@Override
 	public void saveCustomer(Customer customer) {
 		
 		Session session = sessionFactroy.getCurrentSession();
-		session.save(customer);	
+		
+		// save / update Customer object
+		session.saveOrUpdate(customer);	
 	}
 }
